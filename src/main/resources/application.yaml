@@ -1,0 +1,4 @@
+spring:
+  application:
+    name: test
+# Copilot: このファイルはGitHub Copilotによって生成されました。

@@ -29,31 +29,23 @@ applyTo: "**"
 
 <!-- NOTEで記した内容を基に、src/main/java/com/example以下のディレクトリをツリーで示す.  
 * 機能ごとのパッケージ分割を行う
-  * 例: src/main/java/com/example/user, src/main/java/com/example/order, src/main/java/com/example/product
+  * 例: src/main/java/com/example/user, src/main/java/com/example/order
   * 監視やログ、セキュリティなどの共通機能は、関心事ごとにパッケージを分割する
 * src/main/java/com/example/manage, src/main/java/com/example/monitoring
 -->
 ```plaintext
-src
-└── main
-    └── java
-        └── com
-            └── example
-                ├── user
-                │   ├── UserController.java
-                │   ├── UserService.java
-                │   ├── User.java
-                │   └── UserRepository.java
-                ├── order
-                │   ├── OrderController.java
-                │   ├── OrderService.java
-                │   ├── Order.java
-                │   └── OrderRepository.java
-                ├── product
-                │   ├── ProductController.java
-                │   ├── ProductService.java
-                │   ├── Product.java
-                │   └── ProductRepository.java
-                └── monitoring
-                    └── MonitoringController.java
+src/main/java/com/
+    └── example
+        ├── user
+        │   ├── UserController.java
+        │   ├── UserService.java
+        │   ├── User.java
+        │   └── UserRepository.java
+        ├── order
+        │   ├── OrderController.java
+        │   ├── OrderService.java
+        │   ├── Order.java
+        │   └── OrderRepository.java
+        └── monitoring
+            └── MonitoringController.java
 ```

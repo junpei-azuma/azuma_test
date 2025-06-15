@@ -2,3 +2,10 @@ spring:
   application:
     name: test
 # Copilot: このファイルはGitHub Copilotによって生成されました。
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics,health
+

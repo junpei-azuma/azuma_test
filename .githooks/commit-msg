@@ -1,0 +1,22 @@
+#!/bin/bash
+
+commit_msg_file=$1
+commit_msg=$(cat "$commit_msg_file")
+
+# Conventional Commitsの形式を定義
+conventional_pattern="^(fix|feat|docs|style|refactor|test|chore)(\(.+\))?: .+"
+
+if ! echo "$commit_msg" | grep -qE "$conventional_pattern"; then
+    echo "エラー: コミットメッセージがConventional Commitsの形式に従っていません。"
+    echo "正しい形式の例:"
+    echo "  - fix: バグの修正"
+    echo "  - feat: 新機能の追加"
+    echo "  - docs: ドキュメントの更新"
+    echo "  - style: コードのフォーマット変更"
+    echo "  - refactor: リファクタリング"
+    echo "  - test: テストの追加や修正"
+    echo "  - chore: ビルドプロセスの変更"
+    exit 1
+fi
+
+exit 0

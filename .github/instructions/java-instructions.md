@@ -6,6 +6,11 @@ apployTo: "**/*.java"
 
 全てのコードに[copilot-instructions.md](../copilot-instructions.md)の内容を適用する。
 
+## 基本
+- Javaのバージョンは、LTS（Long Term Support）バージョンを使用する。2025年6月現在はJava 21がLTS。
+- プロジェクトのビルドツールはGradleを使用する。
+- ファイルのエンコーディングはUTF-8を使用する。
+
 ## 命名規則
 - クラス名はCamelCaseを使用する。ただし、頭文字は大文字にする（例: `UserService`）。
 - 変数・関数・メソッド名はCamelCaseを使用する（例: `getUserName`）。

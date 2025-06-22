@@ -5,7 +5,7 @@
   "ignorePresets": [
     ":prHourlyLimit2"
   ],
-  "timeZone": "Asia/Tokyo",
+  "timezone": "Asia/Tokyo",
   "dependencyDashboard": false,
   "automerge": false,
   "branchConcurrentLimit": 0

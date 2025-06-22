@@ -8,5 +8,20 @@
   "timezone": "Asia/Tokyo",
   "dependencyDashboard": false,
   "automerge": false,
-  "branchConcurrentLimit": 0
+  "branchConcurrentLimit": 0,
+  "enabledManagers": [
+    "github-actions"
+  ],
+  "packageRules": [
+    {
+      "groupName": "github-actions",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeComment": "This PR has been automatically merged by Renovate.",
+      "schedule": ["every saturday at 00:00"]
+    }
+  ]
 }

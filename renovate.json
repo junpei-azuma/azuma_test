@@ -23,7 +23,7 @@
       "automergeType": "pr",
       "commitMessagePrefix": "chore(deps): ",
       "automergeComment": "This PR has been automatically merged by Renovate.",
-      "schedule": ["every sunday at 16:00"]
+      "schedule": ["on satarday"]
     },
     {
       "groupName": "Dockerfile",
@@ -32,7 +32,7 @@
       "automergeType": "pr",
       "matchUpdateTypes": ["minor", "patch"],
       "commitMessagePrefix": "chore(deps): ",
-      "schedule": ["every sunday at 16:00"]
+      "schedule": ["on satarday"]
     }
   ]
 }

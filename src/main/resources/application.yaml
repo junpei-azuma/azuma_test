@@ -1,8 +1,16 @@
 spring:
   application:
     name: test
-# Copilot: このファイルはGitHub Copilotによって生成されました。
-
+  datasource:
+    url: jdbc:postgresql://localhost:5432/app
+    username: app
+    password: secure_app_password
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    default-schema: app
+    baseline-on-migrate: true
 management:
   endpoints:
     web:

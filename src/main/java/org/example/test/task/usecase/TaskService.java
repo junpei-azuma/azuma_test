@@ -2,20 +2,22 @@ package org.example.test.task.usecase;
 
 import org.example.test.task.domain.Task;
 import org.example.test.task.TaskCreationRequest;
+import org.example.test.task.domain.TaskRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * タスク管理サービス
  */
 @Service
 public class TaskService {
-    private final List<Task> tasks = new ArrayList<>();
+    private final TaskRepository taskRepository;
+
+    public TaskService(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
 
     /**
      * 全てのタスクを取得する
@@ -23,10 +25,27 @@ public class TaskService {
      * @return タスクリスト
      */
     public ArrayList<Task> getAllTasks() {
-        var sampleTask = new Task(
-           UUID.randomUUID(),  "Sample Task", "Sample Condition", LocalDate.now(), LocalDate.now().plusDays(7)
+        return new ArrayList<>(taskRepository.findAll());
+    }
+
+    /**
+     * タスクを作成する
+     *
+     * @param request タスク作成リクエスト
+     * @return 作成されたタスク
+     * @throws IllegalArgumentException バリデーションエラーの場合
+     */
+    public Task createTask(TaskCreationRequest request) {
+        validateTaskCreationRequest(request);
+
+        Task task = Task.createNewTask(
+            request.getTitle(),
+            request.getCompleteCondition(),
+            request.getStartDate(),
+            request.getDueDate()
         );
-        return new ArrayList<>(List.of(sampleTask));
+
+        return taskRepository.save(task);
     }
 
     /**

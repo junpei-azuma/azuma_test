@@ -5,9 +5,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/app
     username: app
     password: secure_app_password
-    driver-class-name: org.postgresql.Driver
+#    driver-class-name: org.postgresql.Driver
   flyway:
-    enabled: true
     locations: classpath:db/migration
     default-schema: app
     baseline-on-migrate: true

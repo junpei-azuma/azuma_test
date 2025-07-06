@@ -1,5 +1,5 @@
 CREATE TABLE task (
-    id VARCHAR(26) NOT NULL, -- ULID形式のID. アプリケーション側で生成する
+    id VARCHAR(36) NOT NULL, -- UUID形式のID. アプリケーション側で生成する
     name VARCHAR(255) NOT NULL,
     complete_condition TEXT,
     is_postponed BOOLEAN NOT NULL DEFAULT FALSE,

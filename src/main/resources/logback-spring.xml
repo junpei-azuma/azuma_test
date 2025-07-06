@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- 開発環境用のコンソール出力（人間が読みやすい形式） -->
+    <springProfile name="!prod">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <!-- アプリケーション固有のロガー設定 -->
+    <logger name="org.example.test" level="DEBUG" additivity="false">
+        <springProfile name="!prod">
+            <appender-ref ref="CONSOLE"/>
+        </springProfile>
+        <springProfile name="prod">
+            <appender-ref ref="STDOUT"/>
+        </springProfile>
+    </logger>
+
+    <!-- Spring関連のログレベル -->
+    <logger name="org.springframework.jdbc" level="DEBUG"/>
+
+</configuration>
+

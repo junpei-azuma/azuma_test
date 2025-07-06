@@ -1,13 +1,14 @@
 package org.example.test.task.domain;
 
+import org.example.test.shared.domain.ID;
+
 import java.time.LocalDate;
-import java.util.UUID;
 
 /**
  * タスクエンティティクラス
  */
 public class Task {
-    private final UUID id;
+    private final ID id;
     private final String title;
     private final String completeCondition;
     private final LocalDate startDate;
@@ -16,10 +17,10 @@ public class Task {
     private final boolean isPostponed;
 
     /**
-     * コンストラクタ
+     * コンストラクタ（新規作成用）
      */
-    public Task(UUID id, String title, String completeCondition, LocalDate startDate, LocalDate dueDate) {
-        this.id = id ;
+    public Task(ID id, String title, String completeCondition, LocalDate startDate, LocalDate dueDate) {
+        this.id = id;
         this.title = title;
         this.completeCondition = completeCondition;
         this.startDate = startDate;
@@ -29,14 +30,27 @@ public class Task {
     }
 
     /**
-     * ファクトリメソッド - 新規タスク作成用
+     * コンストラクタ（全項目指定用）
      */
-    public static Task createNewTask(UUID id, String title, String completeCondition, LocalDate startDate, LocalDate dueDate) {
-        return new Task(id, title, completeCondition, startDate, dueDate);
+    public Task(ID id, String title, String completeCondition, LocalDate startDate, LocalDate dueDate, TaskStatus status, boolean isPostponed) {
+        this.id = id;
+        this.title = title;
+        this.completeCondition = completeCondition;
+        this.startDate = startDate;
+        this.dueDate = dueDate;
+        this.status = status;
+        this.isPostponed = isPostponed;
+    }
+
+    /**
+     * ファクトリメソッド - 新規タスク作成用（IDは自動生成）
+     */
+    public static Task createNewTask(String title, String completeCondition, LocalDate startDate, LocalDate dueDate) {
+        return new Task(ID.generate(), title, completeCondition, startDate, dueDate);
     }
 
     // Getters only
-    public UUID getId() {
+    public ID getId() {
         return id;
     }
 

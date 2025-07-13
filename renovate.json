@@ -1,0 +1,39 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "ignorePresets": [
+    ":prHourlyLimit2"
+  ],
+  "timezone": "Asia/Tokyo",
+  "dependencyDashboard": false,
+  "automerge": false,
+  "branchConcurrentLimit": 0,
+  "enabledManagers": [
+    "github-actions",
+    "dockerfile"
+  ],
+  "packageRules": [
+    {
+      "groupName": "github-actions",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "commitMessagePrefix": "chore(deps): ",
+      "automergeComment": "This PR has been automatically merged by Renovate.",
+      "schedule": ["on saturday"]
+    },
+    {
+      "groupName": "Dockerfile",
+      "matchManagers": ["dockerfile"],
+      "automerge": true,
+      "automergeType": "pr",
+      "matchUpdateTypes": ["minor", "patch"],
+      "commitMessagePrefix": "chore(deps): ",
+      "schedule": ["on saturday"]
+    }
+  ]
+}

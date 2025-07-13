@@ -11,11 +11,14 @@ public class TaskCreationRequest {
     private LocalDate startDate;
     private LocalDate dueDate;
 
-    // デフォルトコンストラクタ
-    public TaskCreationRequest() {
-    }
-
-    // コンストラクタ
+    /**
+     * コンストラクタ
+     *
+     * @param title            タイトル
+     * @param completeCondition 完了条件
+     * @param startDate        開始日
+     * @param dueDate          期限日
+     */
     public TaskCreationRequest(String title, String completeCondition, LocalDate startDate, LocalDate dueDate) {
         this.title = title;
         this.completeCondition = completeCondition;

@@ -1,8 +1,7 @@
 package org.example.test.task.presentation;
 
 import org.example.test.task.domain.Task;
-import org.example.test.task.TaskCreationRequest;
-import org.example.test.task.usecase.TaskService;
+import org.example.test.task.usecase.ReadTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,16 +18,16 @@ import java.util.List;
 @RequestMapping("/tasks")
 public class TaskListController {
 
-    private final TaskService taskService;
+    private final ReadTaskService readTaskService;
 
     /**
      * コンストラクタ
      *
-     * @param taskService タスクサービス
+     * @param readTaskService タスクサービス
      */
     @Autowired
-    public TaskListController(TaskService taskService) {
-        this.taskService = taskService;
+    public TaskListController(ReadTaskService readTaskService) {
+        this.readTaskService = readTaskService;
     }
 
     /**
@@ -39,8 +38,10 @@ public class TaskListController {
      */
     @GetMapping
     public String showTasksPage(Model model) {
-        List<Task> tasks = taskService.getAllTasks();
+        List<Task> tasks = readTaskService.getAllTasks();
         model.addAttribute("tasks", tasks);
+        // フォームオブジェクトを追加
+        model.addAttribute("createTaskForm", new CreateTaskForm());
         return "tasks";
     }
 }

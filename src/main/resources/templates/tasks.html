@@ -1,176 +1,327 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>タスク管理</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .form-container {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 5px;
-            margin-top: 30px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="text"], input[type="date"], textarea, select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        textarea {
-            height: 80px;
-            resize: vertical;
-        }
-        .btn {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .btn:hover {
-            background-color: #0056b3;
-        }
-        .status {
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        .status-not-started {
-            background-color: #e9ecef;
-            color: #495057;
-        }
-        .status-in-progress {
-            background-color: #cce5ff;
-            color: #0056b3;
-        }
-        .status-completed {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .status-failed {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タスク管理</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .navbar {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    }
+
+    .main-content {
+      margin-top: 2rem;
+    }
+
+    .task-card {
+      border: none;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+      transition: transform 0.2s;
+    }
+
+    .task-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, .15);
+    }
+
+    .status-badge {
+      font-size: 0.75rem;
+      padding: 0.4rem 0.8rem;
+    }
+
+    /* ステータス別の色分け */
+    .status-not-started {
+      background-color: #6c757d !important;
+      color: white;
+    }
+
+    .status-in-progress {
+      background-color: #0d6efd !important;
+      color: white;
+    }
+
+    .status-completed {
+      background-color: #198754 !important;
+      color: white;
+    }
+
+    .status-not-achieved {
+      background-color: #dc3545 !important;
+      color: white;
+    }
+
+    .status-on-hold {
+      background-color: #fd7e14 !important;
+      color: white;
+    }
+
+    .form-card {
+      border: none;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    }
+
+    .required {
+      color: #dc3545;
+    }
+
+    .error-message {
+      color: #dc3545;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+
+    .table-responsive {
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    }
+
+    .btn-create {
+      background: linear-gradient(45deg, #007bff, #0056b3);
+      border: none;
+      padding: 0.75rem 2rem;
+      font-weight: 500;
+    }
+
+    .btn-create:hover {
+      background: linear-gradient(45deg, #0056b3, #004085);
+      transform: translateY(-1px);
+    }
+  </style>
 </head>
 <body>
-    <h1>タスク管理</h1>
-
-    <!-- タスク一覧 -->
-    <h2>タスク一覧</h2>
-    <div th:if="${#lists.isEmpty(tasks)}">
-        <p>タスクがありません。</p>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-check2-square"></i>
+        タスク管理システム
+      </a>
     </div>
-    <table th:if="${!#lists.isEmpty(tasks)}">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>タイトル</th>
-                <th>完了条件</th>
-                <th>開始日</th>
-                <th>期限日</th>
-                <th>ステータス</th>
-                <th>延期</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="task : ${tasks}">
-                <td th:text="${task.id}"></td>
-                <td th:text="${task.title}"></td>
-                <td th:text="${task.completeCondition ?: '-'}"></td>
-                <td th:text="${#temporals.format(task.startDate, 'yyyy-MM-dd')}"></td>
-                <td th:text="${#temporals.format(task.dueDate, 'yyyy-MM-dd')}"></td>
+  </nav>
+
+  <div class="container main-content">
+    <!-- Page Header -->
+    <div class="row mb-4">
+      <div class="col">
+        <h1 class="display-6 text-dark">
+          <i class="bi bi-list-task"></i>
+          タスク管理
+        </h1>
+        <p class="text-muted">効率的なタスク管理で生産性を向上させましょう</p>
+      </div>
+    </div>
+
+    <!-- Task List Section -->
+    <div class="row mb-5">
+      <div class="col">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="h4 mb-0">
+            <i class="bi bi-list-ul"></i>
+            タスク一覧
+          </h2>
+          <span class="badge bg-secondary" th:text="${#lists.size(tasks)} + ' 件'">0 件</span>
+        </div>
+
+        <!-- Empty State -->
+        <div th:if="${#lists.isEmpty(tasks)}" class="text-center py-5">
+          <i class="bi bi-inbox display-1 text-muted"></i>
+          <h3 class="h5 text-muted mt-3">タスクがありません</h3>
+          <p class="text-muted">新しいタスクを作成して始めましょう</p>
+        </div>
+
+        <!-- Task Table -->
+        <div th:if="${!#lists.isEmpty(tasks)}" class="table-responsive bg-white rounded">
+          <table class="table table-hover mb-0">
+            <thead class="table-light">
+              <tr>
+                <th class="border-0"><i class="bi bi-hash"></i> ID</th>
+                <th class="border-0"><i class="bi bi-card-text"></i> タイトル</th>
+                <th class="border-0"><i class="bi bi-check-circle"></i> 完了条件</th>
+                <th class="border-0"><i class="bi bi-calendar-event"></i> 開始日</th>
+                <th class="border-0"><i class="bi bi-calendar-x"></i> 期限日</th>
+                <th class="border-0"><i class="bi bi-flag"></i> ステータス</th>
+                <th class="border-0"><i class="bi bi-clock-history"></i> 延期</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="task : ${tasks}" class="align-middle">
+                <td class="fw-bold text-primary" th:text="${task.id}"></td>
                 <td>
-                    <span th:class="'status status-' + ${task.status.name().toLowerCase().replace('_', '-')}"
-                          th:text="${task.status.displayName}"></span>
+                  <div class="fw-semibold" th:text="${task.title}"></div>
                 </td>
-                <td th:text="${task.postponed ? 'あり' : 'なし'}"></td>
-            </tr>
-        </tbody>
-    </table>
-
-    <!-- タスク作成フォーム -->
-    <div class="form-container">
-        <h2>新しいタスクを作成</h2>
-        <form th:action="@{/tasks}" method="post">
-            <div class="form-group">
-                <label for="title">タスク名 <span style="color: red;">*</span></label>
-                <input type="text" id="title" name="title" required maxlength="255">
-            </div>
-
-            <div class="form-group">
-                <label for="completeCondition">完了条件</label>
-                <textarea id="completeCondition" name="completeCondition" placeholder="このタスクが完了したと判断する条件を記入してください（任意）"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="startDate">開始日 <span style="color: red;">*</span></label>
-                <input type="date" id="startDate" name="startDate" required>
-            </div>
-
-            <div class="form-group">
-                <label for="dueDate">期限日 <span style="color: red;">*</span></label>
-                <input type="date" id="dueDate" name="dueDate" required>
-            </div>
-
-            <button type="submit" class="btn">タスクを作成</button>
-        </form>
+                <td>
+                  <span th:if="${task.completeCondition}"
+                        th:text="${#strings.abbreviate(task.completeCondition, 50)}"
+                        class="text-muted"></span>
+                  <span th:unless="${task.completeCondition}" class="text-muted fst-italic">未設定</span>
+                </td>
+                <td>
+                  <span class="badge bg-light text-dark" th:text="${#temporals.format(task.startDate, 'yyyy-MM-dd')}"></span>
+                </td>
+                <td>
+                  <span class="badge bg-light text-dark"
+                        th:text="${#temporals.format(task.dueDate, 'yyyy-MM-dd')}"></span>
+                </td>
+                <td>
+                  <span class="badge status-badge"
+                        th:class="'badge status-badge status-' + ${#strings.toLowerCase(task.status.name().replace('_', '-'))}"
+                        th:text="${task.status.displayName}">
+                    <i class="bi"
+                       th:class="'bi-' + (${task.status.name() == 'NOT_STARTED'} ? 'circle' :
+                                              ${task.status.name() == 'IN_PROGRESS'} ? 'play-circle' :
+                                              ${task.status.name() == 'COMPLETED'} ? 'check-circle' :
+                                              ${task.status.name() == 'NOT_ACHIEVED'} ? 'x-circle' : 'question-circle')"></i>
+                  </span>
+                </td>
+                <td>
+                  <span th:if="${task.postponed}" class="badge bg-warning text-dark">
+                    <i class="bi bi-exclamation-triangle"></i> あり
+                  </span>
+                  <span th:unless="${task.postponed}" class="text-muted">なし</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
-    <script>
-        // 開始日と期限日の制約チェック
-        document.addEventListener('DOMContentLoaded', function() {
-            const startDateInput = document.getElementById('startDate');
-            const dueDateInput = document.getElementById('dueDate');
+    <!-- Task Creation Form -->
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="card form-card">
+          <div class="card-header bg-primary text-white">
+            <h3 class="card-title mb-0">
+              <i class="bi bi-plus-circle"></i>
+              新しいタスクを作成
+            </h3>
+          </div>
+          <div class="card-body p-4">
+            <form th:action="@{/tasks}" method="post" th:object="${createTaskForm}">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="title" class="form-label fw-semibold">
+                      <i class="bi bi-card-text"></i>
+                      タスク名 <span class="required">*</span>
+                    </label>
+                    <input type="text"
+                           class="form-control"
+                           id="title"
+                           name="title"
+                           th:field="*{title}"
+                           th:class="${#fields.hasErrors('title')} ? 'form-control is-invalid' : 'form-control'"
+                           required
+                           maxlength="255"
+                           placeholder="例: プロジェクト企画書作成">
+                    <div class="error-message" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="completeCondition" class="form-label fw-semibold">
+                      <i class="bi bi-check-circle"></i>
+                      完了条件
+                    </label>
+                    <textarea class="form-control"
+                              id="completeCondition"
+                              name="completeCondition"
+                              th:field="*{completeCondition}"
+                              th:class="${#fields.hasErrors('completeCondition')} ? 'form-control is-invalid' : 'form-control'"
+                              rows="3"
+                              placeholder="このタスクが完了したと判断する条件を記入してください（任意）"></textarea>
+                    <div class="error-message" th:if="${#fields.hasErrors('completeCondition')}"
+                         th:errors="*{completeCondition}"></div>
+                  </div>
+                </div>
+              </div>
 
-            function validateDates() {
-                const startDate = new Date(startDateInput.value);
-                const dueDate = new Date(dueDateInput.value);
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="startDate" class="form-label fw-semibold">
+                      <i class="bi bi-calendar-event"></i>
+                      開始日 <span class="required">*</span>
+                    </label>
+                    <input type="date"
+                           class="form-control"
+                           id="startDate"
+                           name="startDate"
+                           th:field="*{startDate}"
+                           th:class="${#fields.hasErrors('startDate')} ? 'form-control is-invalid' : 'form-control'"
+                           required>
+                    <div class="error-message" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="dueDate" class="form-label fw-semibold">
+                      <i class="bi bi-calendar-x"></i>
+                      期限日 <span class="required">*</span>
+                    </label>
+                    <input type="date"
+                           class="form-control"
+                           id="dueDate"
+                           name="dueDate"
+                           th:field="*{dueDate}"
+                           th:class="${#fields.hasErrors('dueDate')} ? 'form-control is-invalid' : 'form-control'"
+                           required>
+                    <div class="error-message" th:if="${#fields.hasErrors('dueDate')}" th:errors="*{dueDate}"></div>
+                  </div>
+                </div>
+              </div>
 
-                if (startDate && dueDate && startDate > dueDate) {
-                    dueDateInput.setCustomValidity('期限日は開始日より後の日付を選択してください');
-                } else {
-                    dueDateInput.setCustomValidity('');
-                }
-            }
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" class="btn btn-primary btn-create">
+                  <i class="bi bi-plus-lg"></i>
+                  タスクを作成
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            startDateInput.addEventListener('change', validateDates);
-            dueDateInput.addEventListener('change', validateDates);
-        });
-    </script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // 開始日と期限日の制約チェック
+    document.addEventListener('DOMContentLoaded', function () {
+      const startDateInput = document.getElementById('startDate');
+      const dueDateInput = document.getElementById('dueDate');
+
+      function validateDates() {
+        const startDate = new Date(startDateInput.value);
+        const dueDate = new Date(dueDateInput.value);
+
+        if (startDate && dueDate && startDate > dueDate) {
+          dueDateInput.setCustomValidity('期限日は開始日より後の日付を選択してください');
+          dueDateInput.classList.add('is-invalid');
+        } else {
+          dueDateInput.setCustomValidity('');
+          dueDateInput.classList.remove('is-invalid');
+        }
+      }
+
+      startDateInput.addEventListener('change', validateDates);
+      dueDateInput.addEventListener('change', validateDates);
+
+      // 今日の日付を開始日のデフォルトに設定
+      if (!startDateInput.value) {
+        const today = new Date().toISOString().split('T')[0];
+        startDateInput.value = today;
+      }
+    });
+  </script>
 </body>
 </html>

@@ -1,0 +1,71 @@
+openapi: 3.0.0
+info:
+  title: Task Creation API
+  version: 1.0.0
+  description: タスクを操作するAPI
+paths:
+  /tasks:
+    post:
+      summary: タスクを作成する
+      description: このエンドポイントは新しいタスクを作成します。タスクにはタイトル、説明、および期限が含まれます。
+      operationId: createTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+      responses:
+        '200':
+          description: Task created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTaskResponse'
+        '400':
+          description: Bad Request - 入力値エラー
+        '500':
+          description: Internal Server Error - サーバー内部エラー
+
+components:
+  schemas:
+    CreateTaskRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the task
+        description:
+          type: string
+          description: A detailed description of the task
+        dueDate:
+          type: string
+          format: date-time
+          description: The due date for the task
+      required:
+        - title
+        - description
+    CreateTaskResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        dueDate:
+          type: string
+          format: date-time
+        status:
+          type: string
+        isPostponed:
+          type: boolean
+      required:
+        - id
+        - title
+        - description
+        - dueDate

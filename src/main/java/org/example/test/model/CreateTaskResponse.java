@@ -21,10 +21,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.time.OffsetDateTime;
+import java.time.LocalDate;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import org.hibernate.validator.constraints.*;
+import jakarta.validation.constraints.*;
+import jakarta.validation.Valid;
 
 
 /**
@@ -33,13 +34,13 @@ import org.hibernate.validator.constraints.*;
 @JsonPropertyOrder({
   CreateTaskResponse.JSON_PROPERTY_ID,
   CreateTaskResponse.JSON_PROPERTY_TITLE,
-  CreateTaskResponse.JSON_PROPERTY_DESCRIPTION,
+  CreateTaskResponse.JSON_PROPERTY_COMPLETE_CONDITION,
   CreateTaskResponse.JSON_PROPERTY_START_DATE,
   CreateTaskResponse.JSON_PROPERTY_DUE_DATE,
   CreateTaskResponse.JSON_PROPERTY_STATUS,
   CreateTaskResponse.JSON_PROPERTY_IS_POSTPONED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-19T20:32:54.915008593+09:00[Asia/Tokyo]", comments = "Generator version: 7.13.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-20T14:29:42.993585103+09:00[Asia/Tokyo]", comments = "Generator version: 7.13.0")
 public class CreateTaskResponse {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nonnull
@@ -49,24 +50,24 @@ public class CreateTaskResponse {
   @jakarta.annotation.Nonnull
   private String title;
 
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @jakarta.annotation.Nonnull
-  private String description;
+  public static final String JSON_PROPERTY_COMPLETE_CONDITION = "completeCondition";
+  @jakarta.annotation.Nullable
+  private String completeCondition;
 
   public static final String JSON_PROPERTY_START_DATE = "startDate";
-  @jakarta.annotation.Nullable
-  private OffsetDateTime startDate;
+  @jakarta.annotation.Nonnull
+  private LocalDate startDate;
 
   public static final String JSON_PROPERTY_DUE_DATE = "dueDate";
   @jakarta.annotation.Nonnull
-  private OffsetDateTime dueDate;
+  private LocalDate dueDate;
 
   public static final String JSON_PROPERTY_STATUS = "status";
-  @jakarta.annotation.Nullable
+  @jakarta.annotation.Nonnull
   private String status;
 
   public static final String JSON_PROPERTY_IS_POSTPONED = "isPostponed";
-  @jakarta.annotation.Nullable
+  @jakarta.annotation.Nonnull
   private Boolean isPostponed;
 
   public CreateTaskResponse() { 
@@ -82,6 +83,8 @@ public class CreateTaskResponse {
    * @return id
    */
   @jakarta.annotation.Nonnull
+  @NotNull
+
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getId() {
@@ -106,6 +109,8 @@ public class CreateTaskResponse {
    * @return title
    */
   @jakarta.annotation.Nonnull
+  @NotNull
+
   @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getTitle() {
@@ -120,31 +125,32 @@ public class CreateTaskResponse {
   }
 
 
-  public CreateTaskResponse description(@jakarta.annotation.Nonnull String description) {
-    this.description = description;
+  public CreateTaskResponse completeCondition(@jakarta.annotation.Nullable String completeCondition) {
+    this.completeCondition = completeCondition;
     return this;
   }
 
   /**
-   * Get description
-   * @return description
+   * Get completeCondition
+   * @return completeCondition
    */
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public String getDescription() {
-    return description;
+  @jakarta.annotation.Nullable
+
+  @JsonProperty(JSON_PROPERTY_COMPLETE_CONDITION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getCompleteCondition() {
+    return completeCondition;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@jakarta.annotation.Nonnull String description) {
-    this.description = description;
+  @JsonProperty(JSON_PROPERTY_COMPLETE_CONDITION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCompleteCondition(@jakarta.annotation.Nullable String completeCondition) {
+    this.completeCondition = completeCondition;
   }
 
 
-  public CreateTaskResponse startDate(@jakarta.annotation.Nullable OffsetDateTime startDate) {
+  public CreateTaskResponse startDate(@jakarta.annotation.Nonnull LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
@@ -153,22 +159,25 @@ public class CreateTaskResponse {
    * Get startDate
    * @return startDate
    */
-  @jakarta.annotation.Nullable
+  @jakarta.annotation.Nonnull
+  @NotNull
+  @Valid
+
   @JsonProperty(JSON_PROPERTY_START_DATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public OffsetDateTime getStartDate() {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public LocalDate getStartDate() {
     return startDate;
   }
 
 
   @JsonProperty(JSON_PROPERTY_START_DATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStartDate(@jakarta.annotation.Nullable OffsetDateTime startDate) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStartDate(@jakarta.annotation.Nonnull LocalDate startDate) {
     this.startDate = startDate;
   }
 
 
-  public CreateTaskResponse dueDate(@jakarta.annotation.Nonnull OffsetDateTime dueDate) {
+  public CreateTaskResponse dueDate(@jakarta.annotation.Nonnull LocalDate dueDate) {
     this.dueDate = dueDate;
     return this;
   }
@@ -178,21 +187,24 @@ public class CreateTaskResponse {
    * @return dueDate
    */
   @jakarta.annotation.Nonnull
+  @NotNull
+  @Valid
+
   @JsonProperty(JSON_PROPERTY_DUE_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public OffsetDateTime getDueDate() {
+  public LocalDate getDueDate() {
     return dueDate;
   }
 
 
   @JsonProperty(JSON_PROPERTY_DUE_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDueDate(@jakarta.annotation.Nonnull OffsetDateTime dueDate) {
+  public void setDueDate(@jakarta.annotation.Nonnull LocalDate dueDate) {
     this.dueDate = dueDate;
   }
 
 
-  public CreateTaskResponse status(@jakarta.annotation.Nullable String status) {
+  public CreateTaskResponse status(@jakarta.annotation.Nonnull String status) {
     this.status = status;
     return this;
   }
@@ -201,22 +213,24 @@ public class CreateTaskResponse {
    * Get status
    * @return status
    */
-  @jakarta.annotation.Nullable
+  @jakarta.annotation.Nonnull
+  @NotNull
+
   @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getStatus() {
     return status;
   }
 
 
   @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(@jakarta.annotation.Nullable String status) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStatus(@jakarta.annotation.Nonnull String status) {
     this.status = status;
   }
 
 
-  public CreateTaskResponse isPostponed(@jakarta.annotation.Nullable Boolean isPostponed) {
+  public CreateTaskResponse isPostponed(@jakarta.annotation.Nonnull Boolean isPostponed) {
     this.isPostponed = isPostponed;
     return this;
   }
@@ -225,17 +239,19 @@ public class CreateTaskResponse {
    * Get isPostponed
    * @return isPostponed
    */
-  @jakarta.annotation.Nullable
+  @jakarta.annotation.Nonnull
+  @NotNull
+
   @JsonProperty(JSON_PROPERTY_IS_POSTPONED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Boolean getIsPostponed() {
     return isPostponed;
   }
 
 
   @JsonProperty(JSON_PROPERTY_IS_POSTPONED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsPostponed(@jakarta.annotation.Nullable Boolean isPostponed) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIsPostponed(@jakarta.annotation.Nonnull Boolean isPostponed) {
     this.isPostponed = isPostponed;
   }
 
@@ -254,7 +270,7 @@ public class CreateTaskResponse {
     CreateTaskResponse createTaskResponse = (CreateTaskResponse) o;
     return Objects.equals(this.id, createTaskResponse.id) &&
         Objects.equals(this.title, createTaskResponse.title) &&
-        Objects.equals(this.description, createTaskResponse.description) &&
+        Objects.equals(this.completeCondition, createTaskResponse.completeCondition) &&
         Objects.equals(this.startDate, createTaskResponse.startDate) &&
         Objects.equals(this.dueDate, createTaskResponse.dueDate) &&
         Objects.equals(this.status, createTaskResponse.status) &&
@@ -263,7 +279,7 @@ public class CreateTaskResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, title, description, startDate, dueDate, status, isPostponed);
+    return Objects.hash(id, title, completeCondition, startDate, dueDate, status, isPostponed);
   }
 
   @Override
@@ -272,7 +288,7 @@ public class CreateTaskResponse {
     sb.append("class CreateTaskResponse {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    completeCondition: ").append(toIndentedString(completeCondition)).append("\n");
     sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
     sb.append("    dueDate: ").append(toIndentedString(dueDate)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");

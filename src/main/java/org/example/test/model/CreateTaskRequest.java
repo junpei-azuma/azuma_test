@@ -21,10 +21,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.time.OffsetDateTime;
+import java.time.LocalDate;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import org.hibernate.validator.constraints.*;
+import jakarta.validation.constraints.*;
+import jakarta.validation.Valid;
 
 
 /**
@@ -32,22 +33,27 @@ import org.hibernate.validator.constraints.*;
  */
 @JsonPropertyOrder({
   CreateTaskRequest.JSON_PROPERTY_TITLE,
-  CreateTaskRequest.JSON_PROPERTY_DESCRIPTION,
+  CreateTaskRequest.JSON_PROPERTY_COMPLETE_CONDITION,
+  CreateTaskRequest.JSON_PROPERTY_START_DATE,
   CreateTaskRequest.JSON_PROPERTY_DUE_DATE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-19T20:32:54.915008593+09:00[Asia/Tokyo]", comments = "Generator version: 7.13.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-20T14:29:42.993585103+09:00[Asia/Tokyo]", comments = "Generator version: 7.13.0")
 public class CreateTaskRequest {
   public static final String JSON_PROPERTY_TITLE = "title";
   @jakarta.annotation.Nonnull
   private String title;
 
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  public static final String JSON_PROPERTY_COMPLETE_CONDITION = "completeCondition";
+  @jakarta.annotation.Nullable
+  private String completeCondition;
+
+  public static final String JSON_PROPERTY_START_DATE = "startDate";
   @jakarta.annotation.Nonnull
-  private String description;
+  private LocalDate startDate;
 
   public static final String JSON_PROPERTY_DUE_DATE = "dueDate";
-  @jakarta.annotation.Nullable
-  private OffsetDateTime dueDate;
+  @jakarta.annotation.Nonnull
+  private LocalDate dueDate;
 
   public CreateTaskRequest() { 
   }
@@ -62,6 +68,8 @@ public class CreateTaskRequest {
    * @return title
    */
   @jakarta.annotation.Nonnull
+  @NotNull
+ @Size(min=1)
   @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getTitle() {
@@ -76,31 +84,59 @@ public class CreateTaskRequest {
   }
 
 
-  public CreateTaskRequest description(@jakarta.annotation.Nonnull String description) {
-    this.description = description;
+  public CreateTaskRequest completeCondition(@jakarta.annotation.Nullable String completeCondition) {
+    this.completeCondition = completeCondition;
     return this;
   }
 
   /**
-   * A detailed description of the task
-   * @return description
+   * The condition that must be met to complete the task
+   * @return completeCondition
+   */
+  @jakarta.annotation.Nullable
+ @Size(max=500)
+  @JsonProperty(JSON_PROPERTY_COMPLETE_CONDITION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getCompleteCondition() {
+    return completeCondition;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_COMPLETE_CONDITION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCompleteCondition(@jakarta.annotation.Nullable String completeCondition) {
+    this.completeCondition = completeCondition;
+  }
+
+
+  public CreateTaskRequest startDate(@jakarta.annotation.Nonnull LocalDate startDate) {
+    this.startDate = startDate;
+    return this;
+  }
+
+  /**
+   * The start date for the task
+   * @return startDate
    */
   @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @NotNull
+  @Valid
+
+  @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public String getDescription() {
-    return description;
+  public LocalDate getStartDate() {
+    return startDate;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@jakarta.annotation.Nonnull String description) {
-    this.description = description;
+  public void setStartDate(@jakarta.annotation.Nonnull LocalDate startDate) {
+    this.startDate = startDate;
   }
 
 
-  public CreateTaskRequest dueDate(@jakarta.annotation.Nullable OffsetDateTime dueDate) {
+  public CreateTaskRequest dueDate(@jakarta.annotation.Nonnull LocalDate dueDate) {
     this.dueDate = dueDate;
     return this;
   }
@@ -109,17 +145,20 @@ public class CreateTaskRequest {
    * The due date for the task
    * @return dueDate
    */
-  @jakarta.annotation.Nullable
+  @jakarta.annotation.Nonnull
+  @NotNull
+  @Valid
+
   @JsonProperty(JSON_PROPERTY_DUE_DATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public OffsetDateTime getDueDate() {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public LocalDate getDueDate() {
     return dueDate;
   }
 
 
   @JsonProperty(JSON_PROPERTY_DUE_DATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDueDate(@jakarta.annotation.Nullable OffsetDateTime dueDate) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDueDate(@jakarta.annotation.Nonnull LocalDate dueDate) {
     this.dueDate = dueDate;
   }
 
@@ -137,13 +176,14 @@ public class CreateTaskRequest {
     }
     CreateTaskRequest createTaskRequest = (CreateTaskRequest) o;
     return Objects.equals(this.title, createTaskRequest.title) &&
-        Objects.equals(this.description, createTaskRequest.description) &&
+        Objects.equals(this.completeCondition, createTaskRequest.completeCondition) &&
+        Objects.equals(this.startDate, createTaskRequest.startDate) &&
         Objects.equals(this.dueDate, createTaskRequest.dueDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(title, description, dueDate);
+    return Objects.hash(title, completeCondition, startDate, dueDate);
   }
 
   @Override
@@ -151,7 +191,8 @@ public class CreateTaskRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreateTaskRequest {\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    completeCondition: ").append(toIndentedString(completeCondition)).append("\n");
+    sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
     sb.append("    dueDate: ").append(toIndentedString(dueDate)).append("\n");
     sb.append("}");
     return sb.toString();

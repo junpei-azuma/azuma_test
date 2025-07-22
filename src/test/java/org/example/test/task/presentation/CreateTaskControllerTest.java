@@ -66,6 +66,8 @@ public class CreateTaskControllerTest {
             .content(requestBody))
         .andExpect(status().isBadRequest())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(content().json("{\"status\": 400, \"message\": \"入力値に不正があります\", \"errors\": {\"title\": \"必須項目が未入力です。\"}}"));
+        .andExpect(jsonPath("$.status").value(400))
+        .andExpect(jsonPath("$.message").value("入力値に不正があります"))
+        .andExpect(jsonPath("$.errors.title").value("必須項目が未入力です。"));
   }
 }

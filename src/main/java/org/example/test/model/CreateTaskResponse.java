@@ -26,6 +26,7 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
+import org.hibernate.validator.constraints.*;
 
 
 /**
@@ -40,7 +41,7 @@ import jakarta.validation.Valid;
   CreateTaskResponse.JSON_PROPERTY_STATUS,
   CreateTaskResponse.JSON_PROPERTY_IS_POSTPONED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-20T14:29:42.993585103+09:00[Asia/Tokyo]", comments = "Generator version: 7.13.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-23T21:35:50.435987916+09:00[Asia/Tokyo]", comments = "Generator version: 7.13.0")
 public class CreateTaskResponse {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nonnull

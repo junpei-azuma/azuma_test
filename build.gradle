@@ -67,7 +67,7 @@ openApiGenerate {
         generateModelTests: 'false',
         generateModelDocumentation: 'false',
         useBeanValidation: 'true',
-        performBeanValidation: 'false',
+        performBeanValidation: 'true',
         library: 'native',
         // NOTE: GsonではなくJacksonを使用する
         serializationLibrary: 'jackson',

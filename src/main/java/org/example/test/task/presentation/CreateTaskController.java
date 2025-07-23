@@ -6,7 +6,6 @@ import org.example.test.model.CreateTaskResponse;
 import org.example.test.task.domain.Task;
 import org.example.test.task.TaskCreationRequest;
 import org.example.test.task.usecase.CreateTaskService;
-import org.example.test.task.usecase.ReadTaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +23,9 @@ public class CreateTaskController {
   /**
    * コンストラクタ
    *
-   * @param readTaskService タスクサービス
+   * @param createTaskService タスク作成サービス
    */
-  public CreateTaskController(CreateTaskService createTaskService, ReadTaskService readTaskService) {
+  public CreateTaskController(CreateTaskService createTaskService) {
     this.createTaskService = createTaskService;
   }
 

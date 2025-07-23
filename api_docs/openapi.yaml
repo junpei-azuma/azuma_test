@@ -35,16 +35,23 @@ components:
         title:
           type: string
           description: The title of the task
-        description:
+          minLength: 1
+        completeCondition:
           type: string
-          description: A detailed description of the task
+          description: The condition that must be met to complete the task
+          maxLength: 500
+        startDate:
+          type: string
+          format: date
+          description: The start date for the task
         dueDate:
           type: string
-          format: date-time
+          format: date
           description: The due date for the task
       required:
         - title
-        - description
+        - startDate
+        - dueDate
     CreateTaskResponse:
       type: object
       properties:
@@ -52,14 +59,14 @@ components:
           type: string
         title:
           type: string
-        description:
+        completeCondition:
           type: string
         startDate:
           type: string
-          format: date-time
+          format: date
         dueDate:
           type: string
-          format: date-time
+          format: date
         status:
           type: string
         isPostponed:
@@ -67,5 +74,7 @@ components:
       required:
         - id
         - title
-        - description
+        - startDate
         - dueDate
+        - status
+        - isPostponed

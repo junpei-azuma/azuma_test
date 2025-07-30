@@ -38,7 +38,7 @@ import org.hibernate.validator.constraints.*;
   CreateTaskRequest.JSON_PROPERTY_START_DATE,
   CreateTaskRequest.JSON_PROPERTY_DUE_DATE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-23T21:35:50.435987916+09:00[Asia/Tokyo]", comments = "Generator version: 7.13.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.13.0")
 public class CreateTaskRequest {
   public static final String JSON_PROPERTY_TITLE = "title";
   @jakarta.annotation.Nonnull

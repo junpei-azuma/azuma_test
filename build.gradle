@@ -75,5 +75,6 @@ openApiGenerate {
         useJakartaEe: 'true',
         // NOTE: ApiClientを参照しないようにするための設定
         supportUrlQuery: 'false',
+        hideGenerationTimestamp: 'true',
     ]
 }

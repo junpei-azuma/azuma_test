@@ -26,6 +26,29 @@ paths:
           description: Bad Request - 入力値エラー
         '500':
           description: Internal Server Error - サーバー内部エラー
+  /tasks/{taskId}:
+    get:
+      summary: 特定のタスクを取得する
+      description: 指定されたIDのタスクの詳細情報を取得します
+      operationId: getTask
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          description: 取得するタスクのID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Task retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTaskResponse'
+        '404':
+          description: Not Found - タスクが見つかりません
+        '500':
+          description: Internal Server Error - サーバー内部エラー
 
 components:
   schemas:
@@ -53,6 +76,32 @@ components:
         - startDate
         - dueDate
     CreateTaskResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        completeCondition:
+          type: string
+        startDate:
+          type: string
+          format: date
+        dueDate:
+          type: string
+          format: date
+        status:
+          type: string
+        isPostponed:
+          type: boolean
+      required:
+        - id
+        - title
+        - startDate
+        - dueDate
+        - status
+        - isPostponed
+    GetTaskResponse:
       type: object
       properties:
         id:

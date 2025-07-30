@@ -30,16 +30,23 @@ import org.hibernate.validator.constraints.*;
 
 
 /**
- * CreateTaskRequest
+ * GetTaskResponse
  */
 @JsonPropertyOrder({
-  CreateTaskRequest.JSON_PROPERTY_TITLE,
-  CreateTaskRequest.JSON_PROPERTY_COMPLETE_CONDITION,
-  CreateTaskRequest.JSON_PROPERTY_START_DATE,
-  CreateTaskRequest.JSON_PROPERTY_DUE_DATE
+  GetTaskResponse.JSON_PROPERTY_ID,
+  GetTaskResponse.JSON_PROPERTY_TITLE,
+  GetTaskResponse.JSON_PROPERTY_COMPLETE_CONDITION,
+  GetTaskResponse.JSON_PROPERTY_START_DATE,
+  GetTaskResponse.JSON_PROPERTY_DUE_DATE,
+  GetTaskResponse.JSON_PROPERTY_STATUS,
+  GetTaskResponse.JSON_PROPERTY_IS_POSTPONED
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.13.0")
-public class CreateTaskRequest {
+public class GetTaskResponse {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull
+  private String id;
+
   public static final String JSON_PROPERTY_TITLE = "title";
   @jakarta.annotation.Nonnull
   private String title;
@@ -56,21 +63,55 @@ public class CreateTaskRequest {
   @jakarta.annotation.Nonnull
   private LocalDate dueDate;
 
-  public CreateTaskRequest() { 
+  public static final String JSON_PROPERTY_STATUS = "status";
+  @jakarta.annotation.Nonnull
+  private String status;
+
+  public static final String JSON_PROPERTY_IS_POSTPONED = "isPostponed";
+  @jakarta.annotation.Nonnull
+  private Boolean isPostponed;
+
+  public GetTaskResponse() { 
   }
 
-  public CreateTaskRequest title(@jakarta.annotation.Nonnull String title) {
+  public GetTaskResponse id(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull
+  @NotNull
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+
+  public GetTaskResponse title(@jakarta.annotation.Nonnull String title) {
     this.title = title;
     return this;
   }
 
   /**
-   * The title of the task
+   * Get title
    * @return title
    */
   @jakarta.annotation.Nonnull
   @NotNull
- @Size(min=1)
+
   @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getTitle() {
@@ -85,17 +126,17 @@ public class CreateTaskRequest {
   }
 
 
-  public CreateTaskRequest completeCondition(@jakarta.annotation.Nullable String completeCondition) {
+  public GetTaskResponse completeCondition(@jakarta.annotation.Nullable String completeCondition) {
     this.completeCondition = completeCondition;
     return this;
   }
 
   /**
-   * The condition that must be met to complete the task
+   * Get completeCondition
    * @return completeCondition
    */
   @jakarta.annotation.Nullable
- @Size(max=500)
+
   @JsonProperty(JSON_PROPERTY_COMPLETE_CONDITION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getCompleteCondition() {
@@ -110,13 +151,13 @@ public class CreateTaskRequest {
   }
 
 
-  public CreateTaskRequest startDate(@jakarta.annotation.Nonnull LocalDate startDate) {
+  public GetTaskResponse startDate(@jakarta.annotation.Nonnull LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
 
   /**
-   * The start date for the task
+   * Get startDate
    * @return startDate
    */
   @jakarta.annotation.Nonnull
@@ -137,13 +178,13 @@ public class CreateTaskRequest {
   }
 
 
-  public CreateTaskRequest dueDate(@jakarta.annotation.Nonnull LocalDate dueDate) {
+  public GetTaskResponse dueDate(@jakarta.annotation.Nonnull LocalDate dueDate) {
     this.dueDate = dueDate;
     return this;
   }
 
   /**
-   * The due date for the task
+   * Get dueDate
    * @return dueDate
    */
   @jakarta.annotation.Nonnull
@@ -164,8 +205,60 @@ public class CreateTaskRequest {
   }
 
 
+  public GetTaskResponse status(@jakarta.annotation.Nonnull String status) {
+    this.status = status;
+    return this;
+  }
+
   /**
-   * Return true if this CreateTaskRequest object is equal to o.
+   * Get status
+   * @return status
+   */
+  @jakarta.annotation.Nonnull
+  @NotNull
+
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public String getStatus() {
+    return status;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStatus(@jakarta.annotation.Nonnull String status) {
+    this.status = status;
+  }
+
+
+  public GetTaskResponse isPostponed(@jakarta.annotation.Nonnull Boolean isPostponed) {
+    this.isPostponed = isPostponed;
+    return this;
+  }
+
+  /**
+   * Get isPostponed
+   * @return isPostponed
+   */
+  @jakarta.annotation.Nonnull
+  @NotNull
+
+  @JsonProperty(JSON_PROPERTY_IS_POSTPONED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public Boolean getIsPostponed() {
+    return isPostponed;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_POSTPONED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIsPostponed(@jakarta.annotation.Nonnull Boolean isPostponed) {
+    this.isPostponed = isPostponed;
+  }
+
+
+  /**
+   * Return true if this GetTaskResponse object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -175,26 +268,32 @@ public class CreateTaskRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CreateTaskRequest createTaskRequest = (CreateTaskRequest) o;
-    return Objects.equals(this.title, createTaskRequest.title) &&
-        Objects.equals(this.completeCondition, createTaskRequest.completeCondition) &&
-        Objects.equals(this.startDate, createTaskRequest.startDate) &&
-        Objects.equals(this.dueDate, createTaskRequest.dueDate);
+    GetTaskResponse getTaskResponse = (GetTaskResponse) o;
+    return Objects.equals(this.id, getTaskResponse.id) &&
+        Objects.equals(this.title, getTaskResponse.title) &&
+        Objects.equals(this.completeCondition, getTaskResponse.completeCondition) &&
+        Objects.equals(this.startDate, getTaskResponse.startDate) &&
+        Objects.equals(this.dueDate, getTaskResponse.dueDate) &&
+        Objects.equals(this.status, getTaskResponse.status) &&
+        Objects.equals(this.isPostponed, getTaskResponse.isPostponed);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(title, completeCondition, startDate, dueDate);
+    return Objects.hash(id, title, completeCondition, startDate, dueDate, status, isPostponed);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CreateTaskRequest {\n");
+    sb.append("class GetTaskResponse {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    completeCondition: ").append(toIndentedString(completeCondition)).append("\n");
     sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
     sb.append("    dueDate: ").append(toIndentedString(dueDate)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    isPostponed: ").append(toIndentedString(isPostponed)).append("\n");
     sb.append("}");
     return sb.toString();
   }

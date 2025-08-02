@@ -3,6 +3,7 @@ package org.example.test.task.domain;
 import org.example.test.shared.domain.ID;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * タスクリポジトリインターフェース
@@ -27,7 +28,7 @@ public interface TaskRepository {
      * IDでタスクを検索する
      *
      * @param id タスクID
-     * @return タスク（見つからない場合はnull）
+     * @return タスク（見つからない場合はEmpty）
      */
-    Task findById(ID id);
+    Optional<Task> findById(ID id);
 }

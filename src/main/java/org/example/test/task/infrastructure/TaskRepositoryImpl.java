@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -54,9 +55,9 @@ public class TaskRepositoryImpl implements TaskRepository {
 
         return jdbcTemplate.query(sql, new TaskRowMapper());
     }
-
+    
     @Override
-    public Task findById(ID id) {
+    public Optional<Task> findById(ID id) {
         String sql = """
             SELECT id, name, complete_condition, start_date, due_date, status, is_postponed
             FROM task
@@ -64,7 +65,7 @@ public class TaskRepositoryImpl implements TaskRepository {
             """;
 
         List<Task> tasks = jdbcTemplate.query(sql, new TaskRowMapper(), id.toString());
-        return tasks.isEmpty() ? null : tasks.get(0);
+        return tasks.isEmpty() ? Optional.empty() : Optional.of(tasks.get(0));
     }
 
     /**

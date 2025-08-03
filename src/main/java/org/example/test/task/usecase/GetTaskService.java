@@ -28,9 +28,13 @@ public class GetTaskService {
      * @throws ResourceNotFoundException タスクが見つからない場合
      */
     public Task getTask(String taskId) {
-        UUID uuid = UUID.fromString(taskId);
-        ID id = ID.of(uuid);
-        return taskRepository.findById(id)
-            .orElseThrow(ResourceNotFoundException::new);
+        try {
+            UUID uuid = UUID.fromString(taskId);
+            ID id = ID.of(uuid);
+            return taskRepository.findById(id)
+                .orElseThrow(ResourceNotFoundException::new);
+        } catch (IllegalArgumentException e) {
+            throw new ResourceNotFoundException();
+        }
     }
 }

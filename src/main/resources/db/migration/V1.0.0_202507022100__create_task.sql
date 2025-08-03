@@ -1,6 +1,6 @@
 CREATE TABLE task (
     id VARCHAR(36) NOT NULL, -- UUID形式のID. アプリケーション側で生成する
-    name VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
     complete_condition TEXT,
     is_postponed BOOLEAN NOT NULL DEFAULT FALSE,
     status integer NOT NULL DEFAULT 0, -- 0: 未着手, 1: 進行中, 2: 完了, 3: 未達成

@@ -29,7 +29,7 @@ public class TaskRepositoryImpl implements TaskRepository {
     @Override
     public Task save(Task task) {
         String sql = """
-            INSERT INTO task (id, name, complete_condition, start_date, due_date, status, is_postponed)
+            INSERT INTO task (id, title, complete_condition, start_date, due_date, status, is_postponed)
             VALUES (?, ?, ?, ?, ?, ?, ?)
             """;
         jdbcTemplate.update(sql,
@@ -48,7 +48,7 @@ public class TaskRepositoryImpl implements TaskRepository {
     @Override
     public List<Task> findAll() {
         String sql = """
-            SELECT id, name, complete_condition, start_date, due_date, status, is_postponed
+            SELECT id, title, complete_condition, start_date, due_date, status, is_postponed
             FROM task
             ORDER BY start_date
             """;
@@ -59,7 +59,7 @@ public class TaskRepositoryImpl implements TaskRepository {
     @Override
     public Optional<Task> findById(ID id) {
         String sql = """
-            SELECT id, name, complete_condition, start_date, due_date, status, is_postponed
+            SELECT id, title, complete_condition, start_date, due_date, status, is_postponed
             FROM task
             WHERE id = ?
             """;
@@ -76,7 +76,7 @@ public class TaskRepositoryImpl implements TaskRepository {
         public Task mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new Task(
                 ID.of(UUID.fromString(rs.getString("id"))),
-                rs.getString("name"),
+                rs.getString("title"),
                 rs.getString("complete_condition"),
                 rs.getDate("start_date").toLocalDate(),
                 rs.getDate("due_date").toLocalDate(),

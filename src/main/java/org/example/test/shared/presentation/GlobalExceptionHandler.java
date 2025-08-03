@@ -55,7 +55,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> handleResourceNotFoundException(ResourceNotFoundException ex) {
         Map<String, Object> errorResponse = new HashMap<>();
         errorResponse.put("status", HttpStatus.NOT_FOUND.value());
-        errorResponse.put("message", "指定したリソースが見つかりません");
+        errorResponse.put("message", "指定したリソースが見つかりません。");
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }

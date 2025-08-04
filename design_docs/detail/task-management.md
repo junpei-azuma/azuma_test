@@ -33,3 +33,17 @@
 
 タスクを作成すると、`tasks.html`が返され、タスクの一覧が表示される。
 
+### タスク参照
+
+#### IN/OUT
+
+- `GET /tasks/{taskId}`
+- 入力値
+  - taskId:  タスクの一意な識別子 
+- 出力値
+  - id
+  - title
+  - startDate
+  - dueDate
+  - status
+  - isPostponed

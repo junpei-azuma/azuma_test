@@ -1,5 +1,5 @@
 # ビルドステージ: Amazon Corretto JDKを使用
-FROM amazoncorretto:21.0.8 AS build
+FROM amazoncorretto:21.0.9 AS build
 
 WORKDIR /workspace/app
 
